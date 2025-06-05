@@ -24,12 +24,18 @@ export const loadAudio = (path) => {
 export const loadVideo = (path) => {
   return new Promise((resolve, reject) => {
     const video = document.createElement("video");
-    //video.addEventListener('loadeddata', () => {
+    // ensure proper CORS handling when videos are hosted on a different origin
+    video.crossOrigin = "anonymous";
     video.addEventListener('loadedmetadata', () => {
       video.setAttribute('playsinline', '');
       resolve(video);
     });
+    video.addEventListener('error', () => {
+      reject(new Error(`Failed to load video: ${path}`));
+    });
     video.src = path;
+    // start loading explicitly for better browser compatibility
+    video.load();
   });
 }
 
