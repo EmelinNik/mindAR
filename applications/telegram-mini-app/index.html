@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NewVision Mini App Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="layout">
+    <section class="intro">
+      <p class="badge">mini app концепт</p>
+      <h1>NewVision Voice</h1>
+      <p class="lead">Telegram mini app для мгновенной транскрибации голосовых заметок и аудио интервью. Выберите mp3, дождитесь обработки и получите ссылку на Google Doc.</p>
+      <div class="features">
+        <div class="feature-card">
+          <span class="feature-title">1 шаг</span>
+          <p class="feature-text">Загрузите mp3 до 50 МБ через WebApp или из чата бота.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-title">2 шаг</span>
+          <p class="feature-text">n8n запускает воркфлоу: скачивание, транскрибация, оформление.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-title">3 шаг</span>
+          <p class="feature-text">Появляется готовый документ, можно скопировать текст или поделиться.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="preview">
+      <div class="phone-shell">
+        <div class="phone-screen">
+          <header class="topbar">
+            <div>
+              <h2>NewVision Voice</h2>
+              <p>Транскрибация аудио в пару шагов</p>
+            </div>
+            <div class="profile-chip">
+              <span class="avatar">NV</span>
+              <span class="profile-name">Anna</span>
+            </div>
+          </header>
+
+          <section class="screen active" id="screen-welcome">
+            <div class="hero-card">
+              <div>
+                <h3>Добро пожаловать 👋</h3>
+                <p>Отправьте ваш mp3 и получите готовый Google Doc. Первые 30 минут записи — бесплатно.</p>
+              </div>
+              <button class="primary" data-screen-target="screen-upload">Загрузить аудио</button>
+            </div>
+
+            <div class="status-cards">
+              <article class="status-card">
+                <h4>Последняя задача</h4>
+                <p class="status-label success" data-last-job-status>Готово</p>
+                <p class="status-text" data-last-job-text>Интервью "NewVision Team" обработано и отправлено в документ.</p>
+              </article>
+              <article class="status-card">
+                <h4>Среднее время</h4>
+                <p class="status-metric">4 мин</p>
+                <p class="status-text">для записи до 15 минут длиной.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="screen" id="screen-upload">
+            <h3 class="screen-title">Загрузка mp3</h3>
+            <p class="screen-subtitle">Поддерживаем стерео/моно до 50 МБ. Файлы хранятся 24 часа.</p>
+            <label class="upload-area">
+              <input id="upload-input" type="file" accept="audio/mpeg,audio/wav,audio/x-m4a" />
+              <span class="upload-icon">⇪</span>
+              <span class="upload-title">Перетащите файл или выберите</span>
+              <span class="upload-hint">mp3, wav, m4a</span>
+            </label>
+            <div class="upload-preview hidden" data-upload-preview>
+              <span class="file-icon" aria-hidden="true">🎧</span>
+              <div class="file-meta">
+                <p class="file-name" data-upload-name>Файл не выбран</p>
+                <p class="file-size" data-upload-size></p>
+              </div>
+              <button class="icon-btn" type="button" data-action="clear-file" aria-label="Удалить выбранный файл">×</button>
+            </div>
+            <p class="upload-error" data-upload-error>Добавьте mp3, чтобы запустить воркфлоу.</p>
+            <button class="primary full" type="button" data-action="send-file" disabled>Отправить в n8n</button>
+
+            <div class="checklist">
+              <p>Перед отправкой убедитесь, что:</p>
+              <ul>
+                <li>в записи нет конфиденциальных данных;</li>
+                <li>вы выбрали правильный язык распознавания;</li>
+                <li>файл не повреждён.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="screen" id="screen-progress">
+            <h3 class="screen-title">Идёт транскрибация</h3>
+            <p class="screen-subtitle" data-progress-subtitle>n8n воркфлоу #4938</p>
+            <p class="progress-status" data-progress-status>Подготавливаем данные…</p>
+            <div class="progress-ring" data-progress-ring>
+              <div class="progress-value" data-progress-value>0%</div>
+            </div>
+            <div class="timeline">
+              <div class="step" data-step="upload">
+                <span class="dot"></span>
+                <div>
+                  <h4>Файл загружен</h4>
+                  <p>MP3 сохранён и передан в очередь.</p>
+                </div>
+              </div>
+              <div class="step" data-step="transcribe">
+                <span class="dot"></span>
+                <div>
+                  <h4>Транскрибация</h4>
+                  <p>Whisper AI обрабатывает дорожку (2 мин)</p>
+                </div>
+              </div>
+              <div class="step" data-step="doc">
+                <span class="dot"></span>
+                <div>
+                  <h4>Google Doc</h4>
+                  <p>Форматирование и отправка ссылки.</p>
+                </div>
+              </div>
+            </div>
+            <button class="secondary" type="button" data-action="cancel-job">Отменить</button>
+          </section>
+
+          <section class="screen" id="screen-result">
+            <h3 class="screen-title">Готово! 🎉</h3>
+            <div class="result-card">
+              <p class="file-name" data-result-file>Интервью_сентябрь.mp3</p>
+              <p class="duration" data-result-duration>Длительность: 12 мин 34 сек</p>
+              <p class="result-info" data-result-note>Ссылка на документ отправлена в чат бота и в личный кабинет.</p>
+              <p class="result-time" data-result-time>Обработано сегодня в 14:22</p>
+              <div class="actions">
+                <a class="primary" data-result-link href="#" target="_blank" rel="noopener noreferrer">Открыть Google Doc</a>
+                <button class="ghost" type="button" data-action="copy-text">Скопировать текст</button>
+              </div>
+            </div>
+            <div class="insights">
+              <h4>Ключевые моменты</h4>
+              <ul>
+                <li>Автоматическое определение говорящих</li>
+                <li>Параграфы с отметками времени</li>
+                <li>Подсветка ключевых слов</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="screen" id="screen-history">
+            <h3 class="screen-title">История</h3>
+            <div class="history-list">
+              <article class="history-card">
+                <div>
+                  <p class="history-title" data-history-latest-title>Команда NewVision</p>
+                  <p class="history-date" data-history-latest-date>Сегодня • 14:22</p>
+                </div>
+                <span class="status-label success" data-history-latest-status>Готово</span>
+              </article>
+              <article class="history-card">
+                <div>
+                  <p class="history-title">Подкаст #52</p>
+                  <p class="history-date">Вчера • 19:05</p>
+                </div>
+                <span class="status-label warning">Требуется проверка</span>
+              </article>
+              <article class="history-card">
+                <div>
+                  <p class="history-title">Планёрка</p>
+                  <p class="history-date">07.05 • 09:15</p>
+                </div>
+                <span class="status-label muted">Черновик</span>
+              </article>
+            </div>
+            <button class="secondary" type="button" data-action="open-dashboard">Перейти в личный кабинет</button>
+          </section>
+
+          <footer class="bottom-nav">
+            <button class="nav-btn active" data-target="screen-welcome">Главная</button>
+            <button class="nav-btn" data-target="screen-upload">Загрузка</button>
+            <button class="nav-btn" data-target="screen-progress">Статус</button>
+            <button class="nav-btn" data-target="screen-result">Результат</button>
+            <button class="nav-btn" data-target="screen-history">История</button>
+          </footer>
+        </div>
+      </div>
+      <div class="toast hidden" role="status" aria-live="polite" data-toast></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
